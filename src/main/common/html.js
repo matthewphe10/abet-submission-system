@@ -6,6 +6,6 @@ module.exports.auth_wrapper = (handler) => {
 
 module.exports.wrapper = (handler) => {
 	return (req, res, next) => {
-		Promise.resolve(handler(req, res, next)).catch(next)
+		Promise.resolve(handler(req, res, next)).catch(next);
 	}
 }
