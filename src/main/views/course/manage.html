@@ -73,7 +73,12 @@
 					</tr>
 					{{/evaluations}}
 				</table>
-				<input type="submit" />
+				<!--Added by Colton Thompson -->
+				<b>Did you remove all private student information?</b> </br> </br>
+				<form name="myForm" onsubmit="validateForm()" method="post">
+					<input type="checkbox" onchange = "document.getElementById('test').disabled  = !this.checked" name="confirmation" id="confirmation" value="Yes"> Yes 
+					<input type="submit" value="Submit" id="test">
+				</form>
 			</form>
 		</div>
 		{{/artifacts}}
