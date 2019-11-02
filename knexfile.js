@@ -12,7 +12,9 @@ const common = {
 module.exports = {
   development: Object.assign({
     connection: {
-      database: 'abet_system_dev'
+      database: 'abet_system_dev',
+	    user: 'postgres',
+	    password: 'koda25'
     },
     seeds: {
       directory: './src/dev/seeds'
@@ -21,7 +23,9 @@ module.exports = {
 
   test: Object.assign({
     connection: {
-      database: 'abet_system_test'
+      database: 'abet_system_test',
+	    user: 'postgres',
+	    password: 'koda25'
     },
     seeds: {
       directory: './src/test/seeds'

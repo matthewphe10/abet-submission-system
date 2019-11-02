@@ -10,9 +10,10 @@ module.exports.new = async ({
 	student_learning_outcomes,
 	section
 }) => {
+	
 	// TODO
 	return {
-		id: 'todo'
+		id: course_number
 	};
 }
 
