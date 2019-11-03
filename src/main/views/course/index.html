@@ -10,7 +10,7 @@
 				<i class="material-icons" 
 				style="cursor:pointer;"
 				title="Displays courses currently in session (editable courses)">help </i></h2>
-				
+
 		<table>
 			<tr>
 				<th>Course</th>
@@ -29,19 +29,20 @@
 				<td>Fall</td>
 				<td>2019</td>
 				<td>8 / 12</td>
-				<td id="CS498">Oct 10,2019</td>
+				<td id='CS498'> <script>document.getElementById('CS498').innerHTML = localStorage.date;</script></td>
 				<td>Dec 5, 2019</td>
-				<td><a href="/course/123">edit  <i class="material-icons">edit</i></a></td>
+				<td onclick="setDate('CS498')"><a href="/course/123">edit  <i class="material-icons">edit</i></a></td>
+				<!-- <script>document.write(new Date().toLocaleDateString());</script> -->
 			</tr>
-			<tr>
+			<tr >
 				<td>CS499</td>
 				<td>Fall</td>
 				<td>2019</td>
 				<td>12 / 12</td>
-				<td id="CS499">Oct 21, 2019</td>
+				<td id='CS499'> <script>document.getElementById('CS499').innerHTML = localStorage.date;</script> </td>
 				<td>Dec 5, 2019</td>
 				<!--Working on date editor-->
-				<td><a href="/course/123">edit <i class="material-icons">edit</i></a></td>
+				<td onclick="setDate('CS499')"><a href="/course/123">edit  <i class="material-icons">edit</i></a></td>
 			</tr>
 		</table>
 	</section>
@@ -77,3 +78,19 @@
 		</table>
 	</section>
 </section>
+
+<script>
+	function setDate(cNum) {
+		if (typeof(Storage) !== "undefined") {
+			//TODO need to create a unique extension to replace date
+			if (localStorage.date) {
+				localStorage.date = new Date().toLocaleDateString()+ " "+ cNum;
+			} else
+				localStorage.date = new Date().toLocaleDateString()+ " | " + cNum;
+			
+			document.getElementById(cNum).innerHTML = localStorage.date;
+		} else {
+			document.getElementById(cNum).innerHTML = "N/A";
+		}
+	}
+</script>
