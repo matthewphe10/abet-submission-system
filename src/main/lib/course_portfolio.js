@@ -1,5 +1,8 @@
 const Portfolio = require('../models/CoursePortfolio')
-
+// minimum number of class size >10 to evaluate
+const min_num_students = 10
+// percentage of students to be evaluated
+const eval_perc = .20
 module.exports.new = async ({
 	department_id,
 	course_number,
@@ -17,6 +20,13 @@ module.exports.new = async ({
 	};
 }
 
+// calculates the number of evaluations needed based on the number of students in the class
+// (20% of class size or 10 students. If there are less than 20 students, evaluate all of them)
+module.exports.num_evals = (num_students) => {
+	if(num_students < 0)
+		return "error, must be 0 or more students in a class"
+	return Math.min(num_students, (Math.max(eval_perc * num_students), min_num_students))
+}
 
 module.exports.get = async (portfolio_id) => {
 	let raw_portfolio = await Portfolio.query()

@@ -5,7 +5,22 @@ const sinon = require('sinon')
 // we use a sandbox so that we can easily restore all stubs created in that sandbox
 const sandbox = sinon.createSandbox();
 
+
+
 describe('Lib - CoursePortfolio', () => {
+
+	describe('Lib - num_evals'), () => {
+		// this is ran after each unit test
+		afterEach(() => {
+			// this is needed to restore the num_evals model back to it's original state
+			// we don't want to break all future unit tests
+			sandbox.restore()
+		})
+	
+		it('Returns error with negative number', () =>{
+				expect(course_portfolio.num_evals(-1)).to.not.be.a.number
+		})
+	}
 
 	describe('get', () => {
 
