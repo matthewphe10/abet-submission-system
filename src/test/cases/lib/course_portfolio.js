@@ -9,19 +9,77 @@ const sandbox = sinon.createSandbox();
 
 describe('Lib - CoursePortfolio', () => {
 
-	describe('Lib - num_evals'), () => {
+
+	describe('num_evals', () => {
 		// this is ran after each unit test
 		afterEach(() => {
 			// this is needed to restore the num_evals model back to it's original state
 			// we don't want to break all future unit tests
 			sandbox.restore()
 		})
-	
-		it('Returns error with negative number', () =>{
-				expect(course_portfolio.num_evals(-1)).to.not.be.a.number
-		})
-	}
 
+		it('Returns error with negative number', () =>{
+			expect(course_portfolio.num_evals(-1)).to.equal("error, must be 0 or more students in a class")
+		})
+
+		it('Returns zero with zero as input', () =>{
+			expect(course_portfolio.num_evals(0)).to.equal(0)
+		})
+
+		it('Returns 5 with class size of 5', () =>{
+			expect(course_portfolio.num_evals(5)).to.equal(5)
+		})
+
+		it('Returns 10 with input > 10 but 20% of input less than 10', () =>{
+			expect(course_portfolio.num_evals(14)).to.equal(10)
+		})
+
+		it('Returns 20% of class size with input > 10 and 20% of input greater than 10', () =>{
+			expect(course_portfolio.num_evals(100)).to.equal(20)
+		})
+	})
+
+	describe('compute_art_score', () => {
+		// this is ran after each unit test
+		afterEach(() => {
+			// this is needed to restore the num_evals model back to it's original state
+			// we don't want to break all future unit tests
+			sandbox.restore()
+		})
+
+		it('Returns error message with negative number', () =>{
+			expect(course_portfolio.compute_art_score(-1, -2, -3)).to.equal("All input values must be 0 or greater")
+		})
+
+		it('Returns zero with any zero as input', () =>{
+			expect(course_portfolio.compute_art_score(0, 1, 2)).to.equal(0)
+		})
+
+		it('Returns correct evaluation percentage', () =>{
+			expect(course_portfolio.compute_art_score(12, 1, 15)).to.equal(87)
+		})
+	})
+
+	describe('get_SLOs', () => {
+		// this is ran after each unit test
+		afterEach(() => {
+			// this is needed to restore the num_evals model back to it's original state
+			// we don't want to break all future unit tests
+			sandbox.restore()
+		})
+
+		const inputZero = []
+		const input = [1, 3, 6]
+		
+		it('Returns error message when no SLOs are provided', () => {
+			expect(course_portfolio.get_SLOs(inputZero)).to.equal("Every class has at least one SLO")
+		})
+
+		it('Returns the SLOs for the given class', () => {
+			expect(course_portfolio.get_SLOs(input)).to.equal("1 3 6")
+		})
+	})
+		
 	describe('get', () => {
 
 		// this is ran after each unit test
