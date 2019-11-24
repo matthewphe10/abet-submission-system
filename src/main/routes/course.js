@@ -147,4 +147,38 @@ router.route('/:id')
 		}
 	}))
 
+	/* GET course page */
+router.route('/archived/:id')
+.get(html.auth_wrapper(async (req, res, next) => {
+	if (req.params.id === 'new') {
+		await course_new_page(res)
+	} else {
+		await course_manage_page(res, req.params.id)
+	}
+}))
+.post(html.auth_wrapper(async (req, res, next) => {
+	if (req.params.id === 'new') {
+		if (req.body.course_submit) {
+			const course_portfolio = await course_portfolio_lib.new({
+				department_id: req.body.department,
+				course_number: req.body.course_number,
+				instructor: 1,
+				semester: req.body.semester,
+				year: req.body.course_year,
+				num_students: req.body.num_students,
+				student_learning_outcomes: Object.entries(req.body)
+					.filter(entry => entry[0].startsWith('slo_') && entry[1] === 'on')
+					.map(entry => entry[0].split('_')[1]),
+				section: req.body.course_section
+			})
+
+			res.redirect(302, `/course/archived/${course_portfolio.id}`)
+		} else {
+			await course_new_page(res, req.body.department)
+		}
+	} else {
+		await course_manage_page(res, 499)
+	}
+}))
+
 module.exports = router;
