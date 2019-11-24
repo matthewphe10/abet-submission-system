@@ -104,16 +104,6 @@
 </section>
 
 <script>
-	function showCompletion(numerator, denominator) {
-		if (numerator < denominator)
-			document.getElementById('completionCS499').innerHTML = <td>(numerator + ' / ' + denominator)</td>
-		else if (numerator == denominator)
-			document.getElementById('completionCS499').innerHTML = <td>(numerator + ' / ' + denominator + '✓')</td>
-			//return (numerator + ' / ' + denominator + '✓')
-	}
-</script>
-
-<script>
 	function setDate(cNum) {
 		if (typeof(Storage) !== "undefined") {
 			var date = new Date().toLocaleDateString();
