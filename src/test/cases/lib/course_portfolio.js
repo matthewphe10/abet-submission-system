@@ -38,6 +38,27 @@ describe('Lib - CoursePortfolio', () => {
 			expect(course_portfolio.num_evals(100)).to.equal(20)
 		})
 	})
+
+	describe('compute_art_score', () => {
+		// this is ran after each unit test
+		afterEach(() => {
+			// this is needed to restore the num_evals model back to it's original state
+			// we don't want to break all future unit tests
+			sandbox.restore()
+		})
+
+		it('Returns error message with negative number', () =>{
+			expect(course_portfolio.compute_art_score(-1, -2, -3)).to.equal("All input values must be 0 or greater")
+		})
+
+		it('Returns zero with any zero as input', () =>{
+			expect(course_portfolio.compute_art_score(0, 1, 2)).to.equal(0)
+		})
+
+		it('Returns correct evaluation percentage', () =>{
+			expect(course_portfolio.compute_art_score(12, 1, 15)).to.equal(87)
+		})
+	})
 		
 	describe('get', () => {
 

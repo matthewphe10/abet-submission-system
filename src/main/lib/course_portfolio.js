@@ -25,7 +25,19 @@ module.exports.new = async ({
 module.exports.num_evals = (num_students) => {
 	if(num_students < 0)
 		return "error, must be 0 or more students in a class"
-	return Math.min(num_students, (Math.max(eval_perc * num_students, min_num_students)))
+	else
+		return Math.min(num_students, (Math.max(eval_perc * num_students, min_num_students)))
+}
+
+// Function takes the number of students who met or exceeded expectations for the class, dividing that by the sample size, and
+// then multiplying that by 100 to yield the result (artifact score) as a percent.
+module.exports.compute_art_score = (num_met, num_exceeds, sample_size) => {
+	if(num_met < 0 || num_exceeds < 0 || num_met < 0)
+		return "All input values must be 0 or greater"
+	else if(num_met == 0 || num_exceeds == 0 || num_met == 0)
+		return 0
+	else
+		return (Math.round(((num_met + num_exceeds) / sample_size) * 100))
 }
 
 module.exports.get = async (portfolio_id) => {
