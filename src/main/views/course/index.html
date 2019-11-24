@@ -28,21 +28,43 @@
 				<td>CS498</td>
 				<td>Fall</td>
 				<td>2019</td>
-				<td>8 / 12</td>
+				<td id='completionCS498'> 
+					<script>
+						function showCompletion(numerator, denominator) {
+							if (numerator < denominator)
+								return (numerator + ' / ' + denominator);
+							else if (numerator == denominator)	
+								return (numerator + ' / ' + denominator + ' ✓');		
+						} 
+						//values of 8 and 12 need to be pulled from artifact
+						//will remain static until they can be pulled dynamically
+						document.getElementById("completionCS498").innerHTML = showCompletion(8, 12);
+					</script>
+				</td>
 				<td id='CS498'> <script>document.getElementById('CS498').innerHTML = localStorage.getItem('CS498');</script> </td>
 				<td>Dec 5, 2019</td>
 				<td onclick="setDate('CS498')"><a href="/course/123">edit  <i class="material-icons">edit</i></a></td>
 				<td><font color="red" size="1">Will be marked read-only on: Dec 27, 2019</font></td>
-				<!-- <script>document.write(new Date().toLocaleDateString());</script> -->
 			</tr>
 			<tr >
 				<td>CS499</td>
 				<td>Fall</td>
 				<td>2019</td>
-				<td>12 / 12</td>
+				<td id='completionCS499'> 
+					<script>
+						function showCompletion(numerator, denominator) {
+							if (numerator < denominator)
+								return (numerator + ' / ' + denominator);
+							else if (numerator == denominator)	
+								return (numerator + ' / ' + denominator + ' ✓');		
+						} 
+						//values of 12 and 12 need to be pulled from artifact
+						//will remain static until they can be pulled dynamically
+						document.getElementById("completionCS499").innerHTML = showCompletion(12, 12);
+					</script>
+				</td>
 				<td id='CS499'> <script>document.getElementById('CS499').innerHTML = localStorage.getItem('CS499');</script> </td>
 				<td>Dec 5, 2019</td>
-				<!--Working on date editor-->
 				<td onclick="setDate('CS499')"><a href="/course/123">edit  <i class="material-icons">edit</i></a></td>
 				<td><font color="red" size="1">Will be marked read-only on: Dec 27, 2019</font></td>
 			</tr>
