@@ -25,7 +25,7 @@ module.exports.new = async ({
 module.exports.num_evals = (num_students) => {
 	if(num_students < 0)
 		return "error, must be 0 or more students in a class"
-	return Math.min(num_students, (Math.max(eval_perc * num_students), min_num_students))
+	return Math.min(num_students, (Math.max(eval_perc * num_students, min_num_students)))
 }
 
 module.exports.get = async (portfolio_id) => {

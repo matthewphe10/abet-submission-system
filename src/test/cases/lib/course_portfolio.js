@@ -9,19 +9,36 @@ const sandbox = sinon.createSandbox();
 
 describe('Lib - CoursePortfolio', () => {
 
-	describe('Lib - num_evals'), () => {
+
+	describe('num_evals', () => {
 		// this is ran after each unit test
 		afterEach(() => {
 			// this is needed to restore the num_evals model back to it's original state
 			// we don't want to break all future unit tests
 			sandbox.restore()
 		})
-	
-		it('Returns error with negative number', () =>{
-				expect(course_portfolio.num_evals(-1)).to.not.be.a.number
-		})
-	}
 
+		it('Returns error with negative number', () =>{
+			expect(course_portfolio.num_evals(-1)).to.equal("error, must be 0 or more students in a class")
+		})
+
+		it('Returns zero with zero as input', () =>{
+			expect(course_portfolio.num_evals(0)).to.equal(0)
+		})
+
+		it('Returns 5 with class size of 5', () =>{
+			expect(course_portfolio.num_evals(5)).to.equal(5)
+		})
+
+		it('Returns 10 with input > 10 but 20% of input less than 10', () =>{
+			expect(course_portfolio.num_evals(14)).to.equal(10)
+		})
+
+		it('Returns 20% of class size with input > 10 and 20% of input greater than 10', () =>{
+			expect(course_portfolio.num_evals(100)).to.equal(20)
+		})
+	})
+		
 	describe('get', () => {
 
 		// this is ran after each unit test
