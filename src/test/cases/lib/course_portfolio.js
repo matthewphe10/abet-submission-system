@@ -59,6 +59,26 @@ describe('Lib - CoursePortfolio', () => {
 			expect(course_portfolio.compute_art_score(12, 1, 15)).to.equal(87)
 		})
 	})
+
+	describe('get_SLOs', () => {
+		// this is ran after each unit test
+		afterEach(() => {
+			// this is needed to restore the num_evals model back to it's original state
+			// we don't want to break all future unit tests
+			sandbox.restore()
+		})
+
+		const inputZero = []
+		const input = [1, 3, 6]
+		
+		it('Returns error message when no SLOs are provided', () => {
+			expect(course_portfolio.get_SLOs(inputZero)).to.equal("Every class has at least one SLO")
+		})
+
+		it('Returns the SLOs for the given class', () => {
+			expect(course_portfolio.get_SLOs(input)).to.equal("1 3 6")
+		})
+	})
 		
 	describe('get', () => {
 
