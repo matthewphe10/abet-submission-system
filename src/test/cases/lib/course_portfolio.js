@@ -69,7 +69,7 @@ describe('Lib - CoursePortfolio', () => {
 		})
 
 		const inputZero = []
-		const input = [1, 3, 6]
+		const input = [1, 0, 1, 0, 0, 1]
 		
 		it('Returns error message when no SLOs are provided', () => {
 			expect(course_portfolio.get_SLOs(inputZero)).to.equal("Every class has at least one SLO")

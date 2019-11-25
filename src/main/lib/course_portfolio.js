@@ -40,17 +40,21 @@ module.exports.compute_art_score = (num_met, num_exceeds, sample_size) => {
 		return (Math.round(((num_met + num_exceeds) / sample_size) * 100))
 }
 
-// Function takes in an array of integers where each value in the array corresponds to an SLO
+// Function takes in a binary array where each value in the array corresponds to an SLO
 module.exports.get_SLOs = (SLO_list) => {
 	var total_SLOs = ''
+	var temp = 0;
 	if (SLO_list.length == 0)
 		return "Every class has at least one SLO"
 	else {
 		for (var i in SLO_list) {
-			total_SLOs = total_SLOs.concat(SLO_list[i])
-			if (i != (SLO_list.length - 1))
-				total_SLOs = total_SLOs.concat(' ')
-		}
+			if (SLO_list[i] == 1) {
+				temp = Number(i) + 1
+				total_SLOs = total_SLOs.concat(temp)
+				if (i != SLO_list.length - 1)
+					total_SLOs = total_SLOs.concat(' ')
+			}
+		} 
 		return total_SLOs
 	}
 }
