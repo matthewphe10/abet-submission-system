@@ -104,6 +104,11 @@ const course_new_page = async (res, department = false) => {
 	})
 }
 
+//added archived_course_page const
+const archived_course_page = async (res) => {
+	res.render('archived')
+}
+
 /* GET course home page */
 router.route('/')
 	.get(html.auth_wrapper(async (req, res, next) => {
@@ -147,13 +152,15 @@ router.route('/:id')
 		}
 	}))
 
-	/* GET course page */
+// John McNerney
+/* GET archived course page */
 router.route('/archived/:id')
 .get(html.auth_wrapper(async (req, res, next) => {
 	if (req.params.id === 'new') {
 		await course_new_page(res)
 	} else {
-		await course_manage_page(res, req.params.id)
+		//changed to archived_course_page
+		await archived_course_page(res, req.params.id)
 	}
 }))
 .post(html.auth_wrapper(async (req, res, next) => {
@@ -177,7 +184,8 @@ router.route('/archived/:id')
 			await course_new_page(res, req.body.department)
 		}
 	} else {
-		await course_manage_page(res, 499)
+		//Changed to archived_course_page
+		await archived_course_page(res, 499)
 	}
 }))
 
