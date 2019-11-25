@@ -39,6 +39,61 @@ describe('Lib - CoursePortfolio', () => {
 		})
 	})
 
+	describe('students_for_evals', () => {
+		// this is ran after each unit test
+		afterEach(() => {
+			// this is needed to restore the num_evals model back to it's original state
+			// we don't want to break all future unit tests
+			sandbox.restore()
+		})
+
+		it('# of evals greater than # of students', () => {
+			//arrange
+			const expected_output = "The number of evaluations must be less than or equal to the number of students"
+			//act 
+			const actual_output = course_portfolio.students_for_evals(3, 2)
+			//assert
+			expect(actual_output).to.equal(expected_output)
+		})
+
+		it('# of evals equal to # of students', () => {
+			//arrange
+			const expected_output = [1, 2, 3]
+			const stub = sandbox.stub(Math, "random")
+			stub.onCall(0).returns(0)
+			stub.onCall(1).returns(1/3)
+			stub.onCall(2).returns(2/3)
+
+			//act
+			const actual_output = course_portfolio.students_for_evals(3, 3)
+
+			// assert
+			expect(actual_output).to.deep.equal(expected_output)
+		})
+
+		it('# of evals less than to # of students', () => {
+			//arrange
+			const expected_output = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+			const stub = sandbox.stub(Math, "random")
+			stub.onCall(0).returns(0)
+			stub.onCall(1).returns(.1)
+			stub.onCall(2).returns(.2)
+			stub.onCall(3).returns(.3)
+			stub.onCall(4).returns(.4)
+			stub.onCall(5).returns(.5)
+			stub.onCall(6).returns(.6)
+			stub.onCall(7).returns(.7)
+			stub.onCall(8).returns(.8)
+			stub.onCall(9).returns(.9)
+
+			//act
+			const actual_output = course_portfolio.students_for_evals(10, 20)
+
+			// assert
+			expect(actual_output).to.deep.equal(expected_output)
+		})
+	})
+
 	describe('compute_art_score', () => {
 		// this is ran after each unit test
 		afterEach(() => {
