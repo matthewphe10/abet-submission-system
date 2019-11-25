@@ -29,6 +29,33 @@ module.exports.num_evals = (num_students) => {
 		return Math.min(num_students, (Math.max(eval_perc * num_students, min_num_students)))
 }
 
+
+// Function that takes in the # of required evals and the # of students in a class
+// Randomly selects a number associated to a student and adds it into an array of students
+module.exports.students_for_evals = (num_evals_req, num_students) => {
+	// error case
+	if (num_students < num_evals_req)
+		return "The number of evaluations must be less than or equal to the number of students"
+
+	var students_to_be_eval = []
+	var tempRandom = 0
+	var contains = true
+	// iterate through the number of evals 
+	// this number is determined by num_evals functions
+	for (var i = 0; i < num_evals_req; i++) {
+		contains = true
+		// create a new random, that does not exist in array currently
+		while (contains) {
+			tempRandom = Math.floor(Math.random() * Math.floor(num_students) +1)
+			if (students_to_be_eval.indexOf(tempRandom) == -1) { 
+				contains = false
+				students_to_be_eval[i] = tempRandom
+			}
+		}
+	}
+	return students_to_be_eval
+}
+
 // Function takes the number of students who met or exceeded expectations for the class, dividing that by the sample size, and
 // then multiplying that by 100 to yield the result (artifact score) as a percent.
 module.exports.compute_art_score = (num_met, num_exceeds, sample_size) => {
@@ -40,17 +67,21 @@ module.exports.compute_art_score = (num_met, num_exceeds, sample_size) => {
 		return (Math.round(((num_met + num_exceeds) / sample_size) * 100))
 }
 
-// Function takes in an array of integers where each value in the array corresponds to an SLO
+// Function takes in a binary array where each value in the array corresponds to an SLO
 module.exports.get_SLOs = (SLO_list) => {
 	var total_SLOs = ''
+	var temp = 0;
 	if (SLO_list.length == 0)
 		return "Every class has at least one SLO"
 	else {
 		for (var i in SLO_list) {
-			total_SLOs = total_SLOs.concat(SLO_list[i])
-			if (i != (SLO_list.length - 1))
-				total_SLOs = total_SLOs.concat(' ')
-		}
+			if (SLO_list[i] == 1) {
+				temp = Number(i) + 1
+				total_SLOs = total_SLOs.concat(temp)
+				if (i != SLO_list.length - 1)
+					total_SLOs = total_SLOs.concat(' ')
+			}
+		} 
 		return total_SLOs
 	}
 }
